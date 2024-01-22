@@ -1,7 +1,6 @@
 import styles from "./InvestmentResults.module.css";
 
 const InvestmentResults = (props) => {
-  console.log(props.data);
   return (
     <table className={styles.result}>
       <thead>
@@ -14,13 +13,22 @@ const InvestmentResults = (props) => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>YEAR NUMBER</td>
-          <td>TOTAL SAVINGS END OF YEAR</td>
-          <td>INTEREST GAINED IN YEAR</td>
-          <td>TOTAL INTEREST GAINED</td>
-          <td>TOTAL INVESTED CAPITAL</td>
-        </tr>
+        {props.results.map((result) => (
+          <tr>
+            <td>{result.year}</td>
+            <td>{result.savingsEndOfYear}</td>
+            <td>{result.yearlyInterest}</td>
+            <td>
+              {result.savingsEndOfYear -
+                result.initialInvestment -
+                result.yearlyContribution * result.year}
+            </td>
+            <td>
+              {result.yearlyContribution * result.year +
+                result.initialInvestment}
+            </td>
+          </tr>
+        ))}
       </tbody>
     </table>
   );
